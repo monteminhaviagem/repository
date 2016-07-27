@@ -1,0 +1,74 @@
+------------------
+-- INSTALLATION --
+------------------
+ls /etc/init.d | grep postfix
+
+sudo apt-get install postfix -y
+sudo apt-get install courier-pop -y
+sudo apt-get install mailutils -y
+
+sudo postconf -e 'home_mailbox = Maildir/'
+
+sudo mkdir /home/mmv/Maildir
+sudo mkdir /home/mmv/Maildir/cur
+sudo mkdir /home/mmv/Maildir/new
+sudo mkdir /home/mmv/Maildir/tmp
+
+sudo chown mmv:mmv /home/mmv/Maildir
+sudo chown mmv:mmv /home/mmv/Maildir/cur
+sudo chown mmv:mmv /home/mmv/Maildir/new
+sudo chown mmv:mmv /home/mmv/Maildir/tmp
+
+
+------------------
+-- CONFIRMATION --
+------------------
+file /etc/init.d/postfix
+file /usr/sbin/postfix
+file /etc/postfix
+nmap localhost
+
+
+-------------
+-- SERVICE --
+-------------
+ps -ef | grep postfix
+
+sudo /etc/init.d/postfix status
+sudo /etc/init.d/postfix stop
+sudo /etc/init.d/postfix start
+sudo /etc/init.d/postfix restart
+
+
+------------
+-- CONFIG --
+------------
+sudo nano /etc/postfix/main.cf
+sudo nano /etc/postfix/master.cf
+
+[main.cf]
+myhostname = monteminhaviagem.com.br
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination = monteminhaviagem.com.br, mmv-prod-01, localhost.localdomain, localhost
+relayhost =
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = all
+home_mailbox = Maildir/
+
+
+---------
+-- LOG --
+---------
+sudo nano /var/log/mail.log
+sudo tail -f /var/log/mail.log
+
+
+----------------
+-- SEND EMAIL --
+----------------
+echo "Test mail from postfix" | mail -s "Test Postfix" -a "From: MMV <mmv@monteminhaviagem.com.br" daniel@grupotwo.com.br

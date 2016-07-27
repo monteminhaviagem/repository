@@ -1,0 +1,31 @@
+------------------
+-- INSTALLATION --
+------------------
+sudo apt-get install libxml2-dev -y
+
+
+------------
+-- CONFIG --
+------------
+cd /home/mmv/tmp
+rsync -a -e 'ssh -i /home/mmv/.ssh/adrive' danielsantello@gmail.com@rsync.adrive.com:programas/server/php/php-7.0.4.tar.gz .
+gzip -d php-7.0.4.tar.gz
+tar xvf php-7.0.4.tar
+
+cd /home/mmv/tmp/php-7.0.4
+./configure --with-apxs2=/usr/local/apache2/bin/apxs --with-pdo-mysql --enable-pdo --with-mysql
+make
+sudo make install
+
+cd /home/mmv/tmp
+rm -Rf *.*
+
+sudo /usr/local/apache2/bin/apachectl -k stop
+
+sudo nano /usr/local/apache2/conf/httpd.conf
+
+<FilesMatch \.php$>
+    SetHandler application/x-httpd-php
+</FilesMatch>
+
+sudo /usr/local/apache2/bin/apachectl -k start

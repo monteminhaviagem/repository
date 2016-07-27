@@ -1,0 +1,31 @@
+------------------
+-- INSTALLATION --
+------------------
+sudo apt-get install proftpd -y
+
+
+------------
+-- CONFIG --
+------------
+sudo nano /etc/proftpd/proftpd.conf
+
+ServerName                      "mmv-homolog-01"
+DefaultRoot                     /home/mmv/ftp
+User                            mmv
+Group                           mmv
+Umask                           000  000
+
+
+-------------
+-- SERVICE --
+-------------
+sudo /etc/init.d/proftpd restart
+sudo /etc/init.d/proftpd status
+sudo /etc/init.d/proftpd start
+sudo /etc/init.d/proftpd stop
+
+
+---------
+-- LOG --
+---------
+sudo nano /var/log/proftpd/proftpd.log

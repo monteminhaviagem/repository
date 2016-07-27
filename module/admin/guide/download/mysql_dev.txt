@@ -1,0 +1,57 @@
+------------------
+-- INSTALLATION --
+------------------
+sudo apt-get install libaio1 -y
+
+cd /home/mmv/tmp
+rsync -a -e 'ssh -i /home/mmv/.ssh/adrive' danielsantello@gmail.com@rsync.adrive.com:programas/server/mysql/mysql-server_5.7.11-1ubuntu14.04_amd64.deb-bundle.tar .
+tar xvf mysql-server_5.7.11-1ubuntu14.04_amd64.deb-bundle.tar
+sudo dpkg-preconfigure mysql-community-server_*.deb
+sudo dpkg -i mysql-{common,community-client,client,community-server,server}_*.deb
+sudo apt-get -f install
+sudo dpkg -i mysql-{common,community-client,client,community-server,server}_*.deb
+sudo dpkg -i libmysqlclient20_5.7.11-1ubuntu14.04_amd64.deb
+sudo dpkg -i libmysqlclient-dev_5.7.11-1ubuntu14.04_amd64.deb
+
+cd /home/mmv/tmp
+rm -Rf *.*
+
+
+------------
+-- CONFIG --
+------------
+sudo /etc/init.d/mysql stop
+
+sudo cp /etc/mysql/my.cnf /etc/mysql/my.cnf.bkp
+sudo nano /etc/mysql/my.cnf
+
+Alterar de:
+bind-address    = 127.0.0.1
+Para:
+bind-address    = 0.0.0.0
+
+sudo /etc/init.d/mysql restart
+
+mysql_config_editor set --login-path=root --host=localhost --user=root --password
+digitar a senha de root: ?ddb01@root!
+
+mysql_config_editor set --login-path=mmv --host=localhost --user=mmv --password
+digitar a senha de mmv: ?ddb01@mmv!
+
+mysql --login-path=root  -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '?ddb01@root\!'"
+mysql --login-path=root  -e "CREATE USER 'mmv' IDENTIFIED BY '?ddb01@mmv\!'"
+mysql --login-path=root  -e "GRANT ALL ON *.* TO 'mmv'@'%' IDENTIFIED BY '?ddb01@mmv\!'"
+mysql --login-path=mmv  -e "create schema \`mmv\` default character set utf8 collate utf8_general_ci"
+
+
+-------------
+-- SERVICE --
+-------------
+sudo /etc/init.d/mysql restart
+sudo /etc/init.d/mysql stop
+
+
+---------
+-- LOG --
+---------
+sudo nano /var/log/mysql/error.log

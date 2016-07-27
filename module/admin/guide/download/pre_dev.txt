@@ -1,0 +1,17 @@
+------------------
+-- MACHINE NAME --
+------------------
+sudo nano /etc/hostname
+sudo nano /etc/hosts
+
+
+----------
+-- USER --
+----------
+sudo adduser mmv
+sudo visudo
+
+Add:
+mmv     ALL=(ALL:ALL) ALL
+After:
+root    ALL=(ALL:ALL) ALL

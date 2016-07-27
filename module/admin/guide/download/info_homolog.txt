@@ -1,0 +1,14 @@
+----------------------
+-- OPERATION SYSTEM --
+----------------------
+HOST_NAME:     mmv-homolog-01
+IP_ADDRESS:    104.236.11.153
+ROOT_PASSWORD: ?hos01@root!
+MMV_PASSWORD:  ?hos01@mmv!
+
+
+--------------
+-- DATABASE --
+--------------
+ROOT_PASSWORD: ?hdb01@root!
+MMV_PASSWORD:  ?hdb01@mmv!

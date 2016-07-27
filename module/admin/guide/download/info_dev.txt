@@ -1,0 +1,13 @@
+----------------------
+-- OPERATION SYSTEM --
+----------------------
+HOST_NAME:     mmv-dev-01
+ROOT_PASSWORD: mmv
+MMV_PASSWORD:  mmv
+
+
+--------------
+-- DATABASE --
+--------------
+ROOT_PASSWORD: ?ddb01@root!
+MMV_PASSWORD:  ?ddb01@mmv!

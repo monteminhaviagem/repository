@@ -1,0 +1,38 @@
+----------------
+-- INSTALAÇÃO --
+----------------
+sudo apt-get update -y
+sudo apt-get install openssl git-core -y
+
+
+------------------
+-- CONFIGURAÇÃO --
+------------------
+cd /home/mmv/www
+
+git init
+git remote add github https://github.com/monteminhaviagem/repository.git
+git fetch github
+git checkout master
+
+git remote add homolog ssh://104.236.11.153/home/mmv/repository
+git remote add production ssh://104.236.86.174/home/mmv/repository
+
+git config user.name "your name"
+git config user.email "your email"
+
+
+--------------
+-- OPCIONAL --
+--------------
+-- ALTERAR O PROMPT PARA INDICAR QUANDO UMA PASTA É RASTREADA PELO GIT
+sudo nano ~/.bash_profile
+
+if [ -f /etc/bash_completion.d/git ]; then
+    . /etc/bash_completion.d/git
+fi
+GIT_PS1_SHOWDIRTYSTATE=true
+
+PS1='\u@\h:\w $(__git_ps1 "(%s)")\$ '
+
+source ~/.bash_profile

@@ -1,0 +1,7 @@
+----------------------
+-- OPERATION SYSTEM --
+----------------------
+HOST_NAME:     mmv-storage
+IP_ADDRESS:    192.241.154.151
+ROOT_PASSWORD: ?sos01@root!
+MMV_PASSWORD:  ?sos01@mmv!

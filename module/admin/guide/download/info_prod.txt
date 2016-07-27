@@ -1,0 +1,14 @@
+----------------------
+-- OPERATION SYSTEM --
+----------------------
+HOST_NAME:     mmv-prod-01
+IP_ADDRESS:    104.236.86.174
+ROOT_PASSWORD: ?pos01@root!
+MMV_PASSWORD:  ?pos01@mmv!
+
+
+--------------
+-- DATABASE --
+--------------
+ROOT_PASSWORD: ?pdb01@root!
+MMV_PASSWORD:  ?pdb01@mmv!

@@ -1,0 +1,17 @@
+-----------------
+-- DIRECTORIES --
+-----------------
+sudo mkdir /home/mmv/www
+sudo mkdir /home/mmv/tmp
+sudo mkdir /home/mmv/script
+
+sudo chown -R mmv:mmv /home/mmv/www
+sudo chown -R mmv:mmv /home/mmv/tmp
+sudo chown -R mmv:mmv /home/mmv/script
+
+
+------------
+-- UPDATE --
+------------
+sudo apt-get update
+sudo apt-get install build-essential -y

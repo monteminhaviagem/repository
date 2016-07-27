@@ -1,0 +1,100 @@
+------------------
+-- INSTALLATION --
+------------------
+cd /home/mmv/tmp
+cp /home/mmv/www/programas/server/apache/httpd-2.4.18.tar.gz /home/mmv/tmp/httpd-2.4.18.tar.gz
+gzip -d httpd-2.4.18.tar.gz
+tar xvf httpd-2.4.18.tar
+
+
+------------------------------------------------
+-- PCRE (Perl Compatible Regular Expressions) --
+------------------------------------------------
+cp /home/mmv/www/programas/server/apache/pcre-8.38.tar.gz /home/mmv/tmp/pcre-8.38.tar.gz
+gzip -d pcre-8.38.tar.gz
+tar xvf pcre-8.38.tar
+cd /home/mmv/tmp/pcre-8.38
+./configure
+make
+sudo make install
+
+
+---------
+-- APR --
+---------
+cd /home/mmv/tmp
+cp /home/mmv/www/programas/server/apache/apr-1.5.2.tar.gz /home/mmv/tmp/apr-1.5.2.tar.gz
+gzip -d apr-1.5.2.tar.gz
+tar xvf apr-1.5.2.tar
+cp -R /home/mmv/tmp/apr-1.5.2/ /home/mmv/tmp/httpd-2.4.18/srclib/apr/
+
+
+--------------
+-- APR UTIL --
+--------------
+cd /home/mmv/tmp
+cp /home/mmv/www/programas/server/apache/apr-util-1.5.4.tar.gz /home/mmv/tmp/apr-util-1.5.4.tar.gz
+gzip -d apr-util-1.5.4.tar.gz
+tar xvf apr-util-1.5.4.tar
+cp -R /home/mmv/tmp/apr-util-1.5.4/ /home/mmv/tmp/httpd-2.4.18/srclib/apr-util/
+
+
+------------
+-- APACHE --
+------------
+cd /home/mmv/tmp/httpd-2.4.18
+./configure --prefix=/usr/local/apache2 --with-included-apr --with-pcre
+make
+sudo make install
+sudo ldconfig
+
+cd /home/mmv/tmp
+rm -Rf *.*
+
+
+------------
+-- CONFIG --
+------------
+sudo cp /usr/local/apache2/conf/httpd.conf /usr/local/apache2/conf/httpd.conf.bkp
+sudo nano /usr/local/apache2/conf/httpd.conf
+
+-- Descomentar as linhas:
+LoadModule cgid_module modules/mod_cgid.so
+LoadModule rewrite_module modules/mod_rewrite.so
+
+-- Alterar user e group
+User mmv
+Group mmv
+
+DocumentRoot "/home/mmv/www"
+<Directory "/home/mmv/www">
+
+-- Alterar
+ AllowOverride None
+-- Para
+ AllowOverride All
+
+
+-------------
+-- STARTUP --
+-------------
+sudo nano /etc/rc.local
+
+sudo /usr/local/apache2/bin/apachectl -k start
+
+grep -i LoadModule /usr/local/apache2/conf/httpd.conf | grep rewrite
+
+
+-------------
+-- SERVICE --
+-------------
+ps -ef | grep http
+sudo /usr/local/apache2/bin/apachectl -k stop
+sudo /usr/local/apache2/bin/apachectl -k start
+sudo /usr/local/apache2/bin/apachectl -k restart
+
+
+----------
+-- LOGS --
+----------
+cd /usr/local/apache2/logs

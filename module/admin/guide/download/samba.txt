@@ -1,0 +1,38 @@
+------------------
+-- INSTALLATION --
+------------------
+sudo apt-get install samba -y
+
+
+------------
+-- CONFIG --
+------------
+sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bkp
+sudo nano /etc/samba/smb.conf
+
+[global]
+security = auto
+guest account = mmv
+
+[mmv]
+path = /home/mmv/www
+browseable = yes
+read only = no
+guest ok = yes
+writeable = yes
+create mask = 0666
+
+
+-------------
+-- SERVICE --
+-------------
+sudo service smbd stop
+sudo service smbd start
+sudo service smbd restart
+
+
+---------
+-- LOG --
+---------
+sudo nano /var/log/samba/log.%m
+sudo nano /var/log/samba/log.samsung

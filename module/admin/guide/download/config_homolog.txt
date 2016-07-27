@@ -1,0 +1,54 @@
+----------
+-- USER --
+----------
+sudo adduser mmv
+visudo
+
+Add:
+mmv     ALL=(ALL:ALL) ALL
+After:
+root    ALL=(ALL:ALL) ALL
+
+
+-----------------
+-- DIRECTORIES --
+-----------------
+sudo mkdir /home/mmv/www
+sudo mkdir /home/mmv/install
+sudo mkdir /home/mmv/script
+sudo mkdir /home/mmv/ftp
+
+sudo chown -R mmv:mmv /home/mmv/www
+sudo chown -R mmv:mmv /home/mmv/install
+sudo chown -R mmv:mmv /home/mmv/script
+sudo chown -R mmv:mmv /home/mmv/ftp
+
+
+------------
+-- KEYGEN --
+------------
+ssh-keygen -t rsa -f /home/mmv/.ssh/adrive -N ''
+
+rsync -a -e 'ssh -i /home/mmv/.ssh/adrive' danielsantello@gmail.com@rsync.adrive.com:empresas/abadar/config/adrive /home/mmv/ftp
+rsync -a -e 'ssh -i /home/mmv/.ssh/adrive' danielsantello@gmail.com@rsync.adrive.com:empresas/abadar/config/adrive.pub /home/mmv/ftp
+rsync -a -e 'ssh -i /home/mmv/.ssh/adrive' danielsantello@gmail.com@rsync.adrive.com:empresas/abadar/config/known_hosts /home/mmv/ftp
+
+
+----------
+-- SWAP --
+----------
+sudo dd if=/dev/zero of=/swapfile bs=1M count=500
+sudo mkswap -f /swapfile
+sudo chmod 600 /swapfile
+sudo nano /etc/fstab
+(colar a seguinte linha no final do arquivo)
+/swapfile none swap sw 0 0
+sudo swapon -a
+free
+
+
+------------
+-- UPDATE --
+------------
+sudo apt-get update
+sudo apt-get install build-essential -y

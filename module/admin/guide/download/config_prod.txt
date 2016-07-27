@@ -1,0 +1,45 @@
+----------
+-- USER --
+----------
+sudo adduser mmv
+
+visudo
+
+Add:
+mmv     ALL=(ALL:ALL) ALL
+After:
+root    ALL=(ALL:ALL) ALL
+
+
+-----------------
+-- DIRECTORIES --
+-----------------
+sudo mkdir /home/mmv/www
+sudo mkdir /home/mmv/install
+sudo mkdir /home/mmv/sh
+sudo mkdir /home/mmv/backup
+
+sudo chown -R mmv:mmv /home/mmv/www
+sudo chown -R mmv:mmv /home/mmv/install
+sudo chown -R mmv:mmv /home/mmv/sh
+sudo chown -R mmv:mmv /home/mmv/backup
+
+
+----------
+-- SWAP --
+----------
+sudo dd if=/dev/zero of=/swapfile bs=1M count=500
+sudo mkswap -f /swapfile
+sudo chmod 600 /swapfile
+sudo nano /etc/fstab
+(colar a seguinte linha no final do arquivo)
+/swapfile none swap sw 0 0
+sudo swapon -a
+free
+
+
+------------
+-- UPDATE --
+------------
+sudo apt-get update
+sudo apt-get install build-essential -y

@@ -1,0 +1,17 @@
+----------------
+-- INSTALAÇÃO --
+----------------
+sudo apt-get update -y
+sudo apt-get install openssl git-core -y
+
+
+------------------
+-- CONFIGURAÇÃO --
+------------------
+sudo mkdir /home/mmv/repository
+sudo chown -R mmv:mmv /home/mmv/repository
+
+cd /home/mmv/repository
+
+git init --bare
+
