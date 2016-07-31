@@ -1,19 +1,30 @@
-------------------
--- INSTALLATION --
-------------------
+--------------------
+-- PRÉ-REQUISITOS --
+--------------------
 sudo apt-get install libxml2-dev -y
 
-
-------------
--- CONFIG --
-------------
 cd /home/mmv/tmp
-rsync -a -e 'ssh -i /home/mmv/.ssh/adrive' danielsantello@gmail.com@rsync.adrive.com:programas/server/php/php-7.0.4.tar.gz .
+wget -m --user "mmv" --password "?sos01@mmv!" -nd ftp://192.241.154.151/programas/server/php/curl-7.50.0.tar.gz -P /home/mmv/tmp
+gzip -d curl-7.50.0.tar.gz
+tar xvf curl-7.50.0.tar
+
+cd /home/mmv/tmp/curl-7.50.0
+
+./configure
+make
+sudo make install
+
+
+----------------
+-- INSTALAÇÃO --
+----------------
+cd /home/mmv/tmp
+wget -m --user "mmv" --password "?sos01@mmv!" -nd ftp://192.241.154.151/programas/server/php/php-7.0.4.tar.gz -P /home/mmv/tmp
 gzip -d php-7.0.4.tar.gz
 tar xvf php-7.0.4.tar
 
 cd /home/mmv/tmp/php-7.0.4
-./configure --with-apxs2=/usr/local/apache2/bin/apxs --with-pdo-mysql --enable-pdo --with-mysql
+./configure --with-apxs2=/usr/local/apache2/bin/apxs --with-pdo-mysql --enable-pdo --with-mysql  --with-curl=/usr/local/lib
 make
 sudo make install
 

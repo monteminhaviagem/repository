@@ -14,6 +14,8 @@ $path_module_admin_dashboard = $path_module_admin."/dashboard";
 $path_module_admin_log = $path_module_admin."/log";
 $path_module_admin_menu = $path_module_admin."/menu";
 $path_module_admin_guide = $path_module_admin."/guide";
+$path_module_admin_version = $path_module_admin."/version";
+$path_module_admin_jira = $path_module_admin."/jira";
 
 $path_module_common = $path_module."/common";
 $path_module_common_google = $path_module."/google";
