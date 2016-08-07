@@ -17,6 +17,8 @@ $args = array();
 $data = array();
 $return = array();
 
+$args["order"] = "version.id desc";
+
 $dm = new Version();
 $dm->get_version(
 	$args,

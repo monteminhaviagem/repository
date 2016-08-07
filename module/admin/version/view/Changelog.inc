@@ -44,16 +44,14 @@ class Changelog extends Admin {
 	
 	public function get_css() {
 		return <<<EOD
-
-
-/* The div inside modal-body is the key; there's where we put the content (which may need the vertical scrollbar) */
- .modal-body {
-    min-height: 300px;
-}
-	.jira-issues  {
-    max-height: 300px;
-    overflow: auto;
-}
+			.modal-body {
+				min-height: 300px;
+			}
+			
+			.jira-issues  {
+				max-height: 300px;
+				overflow: auto;
+			}
 EOD;
 	}
 	
@@ -62,11 +60,11 @@ EOD;
 			var version_id = "{$this->version_id}";
 			var board_id = "";
 			var sprint_id = "";
-					var datatable;
+			var datatable;
 			
 			$(document).ready(function() {
 				datatable = $('#datatable').dataTable({
-					"ajax": "/module/admin/version/xhr/datatable_changelog.php",
+					"ajax": "/module/admin/version/xhr/datatable_changelog.php?version_id=" + version_id,
 					"ordering": false,
 					"paging": false,
 					"searching": false,
@@ -133,7 +131,8 @@ EOD;
 						dataType: 'json',
 						success: function(data) {
 							$.each(data, function(key, val) {
-								$('#sprint_id').append('<option value="' + val.id + '">' + val.name + ' (' + val.state + ')</option>');
+								if (val.state != 'closed')
+									$('#sprint_id').append('<option value="' + val.id + '">' + val.name + '</option>');
 							})
 							$('#sprint_id').removeAttr("disabled");
 						}

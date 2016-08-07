@@ -17,8 +17,10 @@ $args = array();
 $data = array();
 $return = array();
 
+$args["version_id"] = $_GET["version_id"];
+
 $dm = new Changelog();
-$dm->get_changelog(
+$dm->get_changelog_version_id(
 	$args,
 	$data
 );

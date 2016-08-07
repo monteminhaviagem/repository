@@ -61,6 +61,48 @@ class Changelog extends Database {
 		}
 	}
 	
+	public function get_changelog_version_id($args, &$data) {
+		$data = array();
+		$order = (isset($args["order"]) && $args["order"] != "") ? $args["order"] : 'version_changelog.id';
+		
+		$sql = "
+			select version_changelog.id,
+			       version_changelog.version_id,
+			       version.tag,
+			       version_changelog.issue_id,
+			       version_changelog.issue_key,
+			       version_changelog.issue_summary,
+			       version_changelog.issue_description
+			  from version_changelog,
+			       version
+			 where version_changelog.version_id = version.id
+			   and version_changelog.version_id = :version_id
+			 order by $order";
+		
+		$rs = $this->connection->prepare($sql);
+		$rs->bindParam(':version_id', $args["version_id"]);
+		
+		if ($rs->execute()) {
+			if ($rs->rowCount() > 0) {
+				while ($row = $rs->fetch(PDO::FETCH_OBJ)) {
+					$data[] = array(
+						'id' => $row->id,
+						'version_id' => $row->version_id,
+						'tag' => $row->tag,
+						'issue_id' => $row->issue_id,
+						'issue_key' => $row->issue_key,
+						'issue_summary' => $row->issue_summary,
+						'issue_description' => $row->issue_description
+					);
+				}
+			}
+		}
+		else{
+			$this->log->save("Statement => " . print_r($rs->errorInfo(),true), __FILE__, __METHOD__, __LINE__);
+			$this->log->save("Connection => " . print_r($this->connection->errorInfo(),true), __FILE__, __METHOD__, __LINE__);
+		}
+	}
+	
 	public function get_changelog_id($args, &$data) {
 		$data = array();
 		
