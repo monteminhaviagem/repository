@@ -18,8 +18,8 @@ $path_module_admin_version = $path_module_admin."/version";
 $path_module_admin_jira = $path_module_admin."/jira";
 
 $path_module_common = $path_module."/common";
-$path_module_common_google = $path_module."/google";
-$path_module_common_translation = $path_module."/translation";
+$path_module_common_google = $path_module_common."/google";
+$path_module_common_system = $path_module_common."/system";
 
 $path_module_info = $path_module."/info";
 $path_module_operation = $path_module."/operation";

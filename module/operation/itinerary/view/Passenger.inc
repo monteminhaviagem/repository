@@ -11,7 +11,7 @@ use module\operation\itinerary\controller\Passenger;
 
 class Passenger extends Itinerary {
 	
-	const ID = 'ef3e0b1a5a471e06d93952f93d9ee0d7';
+	const ID = 'd4f36d5a931453883117fccac6cea8c3';
 	
 	public function __construct() {
 		session_start();
@@ -65,12 +65,12 @@ EOD;
 	}
 	
 	public function get_content() {
-		global $path_url_img_itinerary;
+		//global $path_url_img_itinerary;
 		
-		$passenger = array();
+		//$passenger = array();
 		
-		$controller = new Passenger();
-		$controller->get_data(1, $passenger); // Recuperar o profile_id da sessão
+		//$controller = new Passenger();
+		//$controller->get_data(1, $passenger); // Recuperar o profile_id da sessão
 		
 		return <<<EOD
 		<div id="pagewrap">

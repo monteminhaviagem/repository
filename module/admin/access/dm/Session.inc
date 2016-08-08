@@ -293,10 +293,11 @@ class Session extends Database {
 		$session_status_id = SessionStatus::ATIVA;
 		$token = md5(uniqid($data["user_id"], true));
 		
-		$st_insert = $this->connection->prepare("insert into session (user_id, token, begin, expire, session_status_id, last_updated, ip) values (:user_id, :token, now(), now(), :session_status_id, :last_updated, :ip)");
+		$st_insert = $this->connection->prepare("insert into session (user_id, token, begin, expire, session_status_id, session_authentication_id, last_updated, ip) values (:user_id, :token, now(), now(), :session_status_id, :session_authentication_id, :last_updated, :ip)");
 		$st_insert->bindParam(':user_id', $data["user_id"]);
 		$st_insert->bindParam(':token', $token);
 		$st_insert->bindParam(':session_status_id', $session_status_id);
+		$st_insert->bindParam(':session_authentication_id', $data["session_authentication_id"]);
 		$st_insert->bindParam(':last_updated', $data["user_id"]);
 		$st_insert->bindParam(':ip', $data["ip"]);
 		

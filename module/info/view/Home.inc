@@ -27,6 +27,11 @@ class Home extends Info {
 	
 	public function get_content() {
 		return <<<EOD
+			<input type="button" onclick="document.location = '/login'" value="Login">
+			
+			<br>
+			
+			<a href="/registration">Clique aqui par se registrar</a>
 EOD;
 	}
 	

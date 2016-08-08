@@ -131,6 +131,32 @@ class User extends Database {
 		}
 	}
 	
+	public function get_user_email($args, &$data) {
+		$data = array();
+		
+		$sql = "
+			select id
+			  from user
+			 where email = :email";
+		
+		$rs = $this->connection->prepare($sql);
+		$rs->bindParam(':email', $args["email"]);
+		
+		if ($rs->execute()) {
+			if ($rs->rowCount() > 0) {
+				if ($row = $rs->fetch(PDO::FETCH_OBJ)) {
+					$data = array(
+						'id' => $row->id
+					);
+				}
+			}
+		}
+		else{
+			$this->log->save("Statement => " . print_r($rs->errorInfo(),true), __FILE__, __METHOD__, __LINE__);
+			$this->log->save("Connection => " . print_r($this->connection->errorInfo(),true), __FILE__, __METHOD__, __LINE__);
+		}
+	}
+	
 	public function get_user_credential($args, &$data) {
 		$data = array();
 		

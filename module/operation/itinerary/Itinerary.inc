@@ -30,7 +30,7 @@ class Itinerary extends Operation {
 	
 	public function get_header() {
 		return <<<EOD
-			<div id="header">hh</div>
+			<div id="header"><a href="/logout">Sair</a></div>
 EOD;
 	}
 	

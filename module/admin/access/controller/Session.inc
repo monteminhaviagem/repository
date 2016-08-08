@@ -1,4 +1,5 @@
 <?php
+
 namespace module\admin\access\controller;
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/path.php");
@@ -14,37 +15,14 @@ class Session {
 	
 	public function __construct() {}
 	
-	public function create_session($email = "", $password = "", &$stat) {
+	public function create_session($user_id, $session_authentication_id, &$stat) {
 		$args = array();
 		$data = array();
 		$stat = array();
 		
-		if (($email == "") || ($password == "")) {
-			$stat["success"] = "false";
-			$stat["message"] = "Invalid email or password";
-			return;
-		}
-		
-		$data["get_user_credential"] = array();
-		$args["get_user_credential"] = array();
-		$args["get_user_credential"]["email"] = $email;
-		$args["get_user_credential"]["password"] = md5($password);
-		
-		$dm = new User();
-		$dm->get_user_credential(
-			$args["get_user_credential"],
-			$data["get_user_credential"]
-		);
-		
-		if (empty($data["get_user_credential"]["id"])) {
-			$stat["success"] = "false";
-			$stat["message"] = "Invalid email or password";
-			return;
-		}
-		
 		$data["get_session_user_active"] = array();
 		$args["get_session_user_active"] = array();
-		$args["get_session_user_active"]["user_id"] = $data["get_user_credential"]["id"];
+		$args["get_session_user_active"]["user_id"] = $user_id;
 		
 		$dm = new Session();
 		$dm->get_session_user_active(
@@ -57,7 +35,7 @@ class Session {
 		
 		for ($i=0; $i<count($data["get_session_user_active"]); $i++) {
 			$data["finalize_session"]["id"] = $data["get_session_user_active"][$i]["id"];
-			$data["finalize_session"]["last_updated"] = $data["get_user_credential"]["id"];
+			$data["finalize_session"]["last_updated"] = $user_id;
 			$data["finalize_session"]["ip"] = $_SERVER["REMOTE_ADDR"] ?? "0.0.0.0";
 			
 			$dm->finalize_session(
@@ -68,7 +46,8 @@ class Session {
 		
 		$stat["create_session"] = array();
 		$data["create_session"] = array();
-		$data["create_session"]["user_id"] = $data["get_user_credential"]["id"];
+		$data["create_session"]["user_id"] = $user_id;
+		$data["create_session"]["session_authentication_id"] = $session_authentication_id;
 		$data["create_session"]["ip"] = $_SERVER["REMOTE_ADDR"] ?? "0.0.0.0";
 		
 		$dm->create_session(

@@ -1,4 +1,5 @@
 <?php
+
 namespace module\info\view;
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/path.php");
@@ -13,8 +14,8 @@ class Login extends Info {
 	
 	const ID = '9194f5f3fd830b9c5af98978f9939036';
 	
+	protected $email  = "";
 	protected $message  = "";
-	protected $warning  = "";
 	
 	public function __construct() {
 		parent::__construct($this::ID);
@@ -44,8 +45,45 @@ class Login extends Info {
 	
 	public function get_js() {
 		return <<<EOD
-			$("button").click(function() {
+			$(document).ready(function() {
+				if ($("#message").html() != "")
+					$("#message").show();
+			});
+			
+			$("#local").click(function() {
+				if ($("#email").val() == "") {
+					$("#email").focus();
+					$("#message").html("Preencher E-mail e Password.");
+					$("#message").show();
+					return false;
+				}
+				
+				if ($("#password").val() == "") {
+					$("#password").focus();
+					$("#message").html("Preencher E-mail e Password.");
+					$("#message").show();
+					return false;
+				}
+				
 				$("form").submit();
+			});
+			
+			$("#google").click(function() {
+				$.ajax({
+					type: "POST",
+					url: "/module/common/google/xhr/authentication.php",
+					dataType: "json"
+				})
+				.done(function(data) {
+					url = data.url;
+					url += "?scope=" + encodeURIComponent(data.scope);
+					url += "&state=" + encodeURIComponent(data.state);
+					url += "&redirect_uri=" + encodeURIComponent(data.redirect_uri);
+					url += "&response_type=" + encodeURIComponent(data.response_type);
+					url += "&client_id=" + encodeURIComponent(data.client_id);
+					
+					document.location = url;
+				});
 			});
 EOD;
 	}
@@ -62,25 +100,26 @@ EOD;
 								<h3 class="panel-title">Please Sign In</h3>
 							</div>
 							<div class="panel-body">
-								<form role="form" method="POST">
+								<form role="form" method="POST" action="/authentication.php">
 									<input type="hidden" name="token" value="">
 									<fieldset>
 										<div class="form-group">
-											<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+											<input class="form-control" placeholder="E-mail" id="email" name="email" type="email" value="{$this->email}" autofocus>
 										</div>
 										<div class="form-group">
-											<input class="form-control" placeholder="Password" name="password" type="password" value="">
+											<input class="form-control" placeholder="Password" id="password" name="password" type="password" value="">
 										</div>
 										<div class="checkbox">
 											<label>
 												<input name="remember" type="checkbox" value="Remember Me">Remember Me
 											</label>
 										</div>
-										<button type="button" class="btn btn-lg btn-success btn-block">Login</button>
+										<button type="button" id="local" class="btn btn-lg btn-success btn-block">Login</button>
+										<button type="button" id="google" class="btn btn-lg btn-success btn-block">Google</button>
 										
 										<br>
 										
-										{$this->warning}
+										<div id="message" class="alert alert-warning" style="display: none;">{$this->message}</div>
 									</fieldset>
 								</form>
 							</div>
@@ -98,43 +137,11 @@ EOD;
 	}
 	
 	private function init() {
-		if (isset($_POST["token"])) {
-			$stat = array();
-			
-			$email = $_POST["email"] ?? "";
-			$password = $_POST["password"] ?? "";
-			
-			$controller = new Session();
-			$controller->create_session(
-				$email,
-				$password,
-				$stat
-			);
-			
-			if ($stat["success"] == "false") {
-				$this->message = $stat["message"];
-			}
-			else {
-				session_start();
-				
-				$_SESSION['id'] = $stat["session"]["id"];
-				$_SESSION['token'] = $stat["session"]["token"];
-				$_SESSION['user_id'] = $stat["session"]["user_id"];
-				$_SESSION['profile_id'] = $stat["session"]["profile_id"];
-				$_SESSION['user_type_id'] = $stat["session"]["user_type_id"];
-				$_SESSION['page_type_id'] = $stat["session"]["page_type_id"];
-				
-				header("Location: /");
-			}
-		}
+		if (isset($_POST["email"]))
+			$this->email = $_POST["email"];
 		
-		if ($this->message != "") {
-			$this->warning = <<<EOD
-				<div class="alert alert-warning">
-					{$this->message}
-				</div>
-EOD;
-		}
+		if (isset($_POST["message"]))
+			$this->message = $_POST["message"];
 	}
 }
 

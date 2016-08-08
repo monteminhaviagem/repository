@@ -10,7 +10,7 @@ require_once($path_module_common."/Security.inc");
 require_once($path_module_admin_access."/dm/Page.inc");
 
 use module\admin\access\dm\Page;
-use module\info\view\Error;
+use module\info\view\Login;
 
 class Page {
 	protected $css;
@@ -38,7 +38,7 @@ class Page {
 			$profile_id = $_SESSION['profile_id'] ?? null;
 			
 			if (is_null($profile_id) || !Security::get_authorization($screen_id, $profile_id)) {
-				header("Location: " . Page::get_url(Error::ID));
+				header("Location: " . Page::get_url(Login::ID));
 				exit;
 			}
 		}

@@ -3,13 +3,14 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . "/Path.inc");
 //require_once($path_root."/ErrorHandler.inc");
 //require_once($path_root_log."/Logger.inc");
-require_once($path_root_module_google."/API.inc");
-require_once($path_root_module_translate."/dm/DictionaryDM.inc");
+//require_once($path_root_module_google."/API.inc");
+//require_once($path_root_module_translate."/dm/DictionaryDM.inc");
 
-class Translate {
+class Information {
 	
 	public function __construct() {}
 	
+	/*
 	public function get_translation($source, $target, $text, $cache = true) {
 		$dm_args = array();
 		$dm_data = array();
@@ -61,6 +62,7 @@ class Translate {
 		
 		return $return;
 	}
+	*/
 }
 
 ?>
