@@ -35,8 +35,15 @@ function authorized($session) {
 	$_SESSION['user_type_id'] = $session["user_type_id"];
 	$_SESSION['page_type_id'] = $session["page_type_id"];
 	
-	//print_r($session);
-	header("Location: /");
+	echo <<<EOD
+		<html>
+			<head>
+				<script type="text/javascript">
+					document.location = "/";
+				</script>
+			</head>
+		</html>
+EOD;
 }
 
 function local() {
