@@ -31,5 +31,7 @@ $path_url_js = "/js";
 
 $path_url_img_itinerary = "/module/operation/itinerary/img";
 $path_url_img_guide = "/module/admin/guide/img";
+$path_url_repository_img = "/repository/img";
+$path_url_repository_info_img = "/repository/info/img";
 
 ?>

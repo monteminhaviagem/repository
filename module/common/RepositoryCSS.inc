@@ -29,6 +29,10 @@ class RepositoryCSS {
 				"developer"  => $path_url_css."/admin-global-1.0.css",
 				"production" => $path_url_css."/admin-global-1.0.css"
 			),
+			"info-global.css" => array(
+				"developer"  => $path_url_css."/info-global-1.0.css",
+				"production" => $path_url_css."/info-global-1.0.css"
+			),
 			"datepicker.css" => array(
 				"developer"  => $path_url_assets."/jquery-ui/css/datepicker.css",
 				"production" => $path_url_assets."/jquery-ui/css/datepicker.css"
