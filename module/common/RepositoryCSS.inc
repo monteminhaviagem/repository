@@ -58,8 +58,36 @@ class RepositoryCSS {
 				"production" => $path_url_assets."/highlight/css/zenburn-1.0.css"
 			),
 			"roteiro.css" => array(
-				"developer" => $path_url_css."/roteiro.css",
-				"production" => $path_url_css."/roteiro.css"
+				"developer" => $path_url_css."/roteiro-1.0.css",
+				"production" => $path_url_css."/roteiro-1.0.css"
+			),
+			"porto-custom.css" => array(
+					"developer" => $path_url_css."/porto-custom-1.0.css",
+					"production" => $path_url_css."/porto-custom-1.0.css"
+			),
+			"porto-skin-default.css" => array(
+					"developer" => $path_url_css."/porto-skin-default-1.0.css",
+					"production" => $path_url_css."/porto-skin-default-1.0.css"
+			),
+			"porto-theme.css" => array(
+					"developer" => $path_url_css."/porto-theme-1.0.css",
+					"production" => $path_url_css."/porto-theme-1.0.css"
+			),
+			"porto-theme-animate.css" => array(
+					"developer" => $path_url_css."/porto-theme-animate-1.0.css",
+					"production" => $path_url_css."/porto-theme-animate-1.0.css"
+			),
+			"porto-theme-blog.css" => array(
+					"developer" => $path_url_css."/porto-theme-blog-1.0.css",
+					"production" => $path_url_css."/porto-theme-blog-1.0.css"
+			),
+			"porto-theme-elements.css" => array(
+					"developer" => $path_url_css."/porto-theme-elements-1.0.css",
+					"production" => $path_url_css."/porto-theme-elements-1.0.css"
+			),
+			"porto-theme-shop.css" => array(
+					"developer" => $path_url_css."/porto-theme-shop-1.0.css",
+					"production" => $path_url_css."/porto-theme-shop-1.0.css"
 			)
 		);
 		
