@@ -56,6 +56,26 @@ class RepositoryJS {
 			"functions.js" => array(
 				"developer" => $path_url_js."/functions.js",
 				"production" => $path_url_js."/functions.js"
+			),
+			"porto-custom.js" => array(
+					"developer" => $path_url_js."/porto-custom-1.0.js",
+					"production" => $path_url_js."/porto-custom-1.0.js"
+			),
+			"porto-theme.js" => array(
+					"developer" => $path_url_js."/porto-theme-1.0.js",
+					"production" => $path_url_js."/porto-theme-1.0.js"
+			),
+			"porto-theme-init.js" => array(
+					"developer" => $path_url_js."/porto-theme-init-1.0.js",
+					"production" => $path_url_js."/porto-theme-init-1.0.js"
+			),
+			"porto-view-contact.js" => array(
+					"developer" => $path_url_js."/porto-view-contact-1.0.js",
+					"production" => $path_url_js."/porto-view-contact-1.0.js"
+			),
+			"porto-view-home.js" => array(
+					"developer" => $path_url_js."/porto-view-home-1.0.js",
+					"production" => $path_url_js."/porto-view-home-1.0.js"
 			)
 		);
 		
